@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<script src="http://apps.bdimg.com/libs/jquery/1.11.1/jquery.min.js"></script>
+		<script>
+			$(document).ready(function() {
+				$("#id_username").focus(function() {
+					var val_text = this.value;
+					<!--console.log(val_text);-->
+					if(val_text == this.defaultValue) {
+						this.value = '';
+					}
+				});
+				$("#id_username").blur(function() {
+					var val_text = this.value;
+					console.log(val_text);
+					if(val_text == '') {
+						<!--this.value = this.defaultValue;-->
+						this.value = '';
+					}
+				});
+				$('.submit-row').click(function(event){
+					var user_id = $('#id_username');
+					console.log(user_id.value);
+					if(user_id.val()==""){
+						alert("请输入用户名");
+						event.preventDefault();
+						return false;
+					}
+				});
+			});
+		</script>
+		<meta charset="UTF-8">
+		<title>Max's blog login page</title>
+	</head>
+
+	<body>
+		<form action="/loginVerify" method="post">
+			{%csrf_token%}
+			<div class="form-row">
+				<label class="required" for="id_username">Username:</label><input autofocus="" id="id_username" maxlength="24" name="username" type="text" value="请输入用户名">
+			</div>
+			<div class="form-row">
+				<label class="required" for="id_password">password:</label><input autofocus="" id="id_password" maxlength="128" name="password" type="password" value="">
+			</div>
+			<div class="submit-row">
+				<label>&nbsp;</label><input id="submit-row" type="submit" value="Log in">
+			</div>
+			{{error}}
+		</form>
+
+	</body>
+
+</html>

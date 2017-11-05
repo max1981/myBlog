@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load staticfiles %}
+    <meta charset="UTF-8">
+    <title>添加博客</title>
+    <link rel="stylesheet" href="{% static 'blog/css/blogContent.css' %}">
+</head>
+<body>
+<form action="/saveBlog/" method="POST">
+    {%csrf_token%}
+<label class="c_title">题目:</label><input class="title" id="title" name="title" value=""/>
+<br>
+<label class="c_content">内容:</label>
+<div>
+    <textarea class="content" id="content" name="content" value=""/></textarea>
+</div>
+    <br>
+    <label>&nbsp;</label><input type="submit" value="Add">
+
+    </form>
+
+
+
+</body>
+</html>

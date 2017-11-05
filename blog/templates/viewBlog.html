@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<script src="http://apps.bdimg.com/libs/jquery/1.11.1/jquery.min.js"></script>
+		<script>
+			$(document).ready(function() {
+				$("#like").click(function(data) {
+					$.ajax({
+						type: "get",
+						url: "/ajaxlike/{{id}}",
+						dataType: "json",
+						success: function(data) {
+							console.log(data);
+							$('#likeRes').text(data['like']);
+
+						}
+					});
+
+					return false;
+				});
+
+				$("#unlike").click(function(data) {
+					$.ajax({
+						type: "get",
+						url: "/ajaxunlike/{{id}}",
+						dataType: "json",
+						success: function(data) {
+							console.log(data);
+							$('#unlikeRes').text(data['unlike']);
+
+						}
+					});
+
+					return false;
+				});
+
+			});
+		</script>
+		<meta charset="UTF-8">
+		<title>Title</title>
+	</head>
+
+	<body>
+		<form action="#" method="POST">
+			{%csrf_token%}
+			<label class="c_title">题目: </label><input class="title" id="title" name="title" value={{title}}>
+			<br>
+			<label class="c_content">内容: </label>
+			<div>
+				<textarea class="content" id="content" name="content" value>{{content}}</textarea>
+			</div>
+			<br>
+			<button id="like">点赞</button>
+			<br>
+			<p id="likeRes">{{like}}</p>
+			<br>
+			<button id="unlike">拍砖</button>
+			<p id="unlikeRes">{{unlike}}</p>
+			<br>
+
+		</form>
+
+	</body>
+
+</html>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<link href="../../static/blog/css/bootstrap.min.css" rel="stylesheet">
+		<script src="../../static/blog/js/jquery-3.1.1.min.js"></script>
+		<script src="../../static/blog/js/bootstrap.min.js"></script>
+		<script src="../../static/blog/js/plugins/metisMenu/jquery.metisMenu.js"></script>
+		<script src="../../static/blog/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+
+		<!--<script>-->
+			<!--$(document).ready(function(){-->
+				<!--console.log("yyyyyyyyyyy");-->
+				<!--$('#btn_comment_submit').click(function() {-->
+					<!--console.log("ppppppppppppp");-->
+					<!--$.ajax(-->
+						<!--url: 'addComment?comment=' + $('#tbCommentBody').val() + '&blogid=' + {{data.blogid}},-->
+						<!--type: 'get',-->
+						<!--dataType: 'json',-->
+						<!--success: $('#tbCommentBody').val() = '';-->
+
+					<!--);-->
+				<!--};);-->
+			<!--});-->
+		<!--</script>-->
+
+		<title>评论</title>
+		<div id="comment_form_container">
+			<div id="commentform_title">发表评论</div>
+			<span id="tip_comment" style="color:Red"></span>
+			<p>
+				昵称：<input type="text" id="tbCommentAuthor" class="author" disabled="disabled" size="50" value={{username}}>
+			</p>
+			<div class="commentbox_main">
+				<div class="commentbox_title">
+					<div class="commentbox_title_left">评论内容：</div>
+				</div>
+				<div class="clear"></div>
+				<textarea id="tbCommentBody" class="comment_textarea" value=""></textarea>
+			</div>
+			<p id="commentbox_opt">
+				<input id="btn_comment_submit" type="button" class="comment_btn" value="提交评论">
+			</p>
+			<div id="tip_comment2" style="color:Red"></div>
+			<div style="display:none">
+				<span id="comment_edit_id"></span><span id="span_parentcomment_id"></span>
+				<span id="span_parent_id"></span>
+				<span id="span_comment_replyto"></span>
+				<span id="span_comment_posted"></span>
+			</div>
+		</div>
+	</head>
+
+	<body>
+	</body>
+
+</html>

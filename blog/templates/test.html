@@ -1,0 +1,54 @@
+{% load num_displaypages %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <!-- 新 Bootstrap 核心 CSS 文件 -->
+    <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap.min.css">
+
+    <!-- 可选的Bootstrap主题文件（一般不用引入） -->
+    <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap-theme.min.css">
+
+    <!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
+    <script src="http://cdn.bootcss.com/jquery/1.11.1/jquery.min.js"></script>
+
+    <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+    <script src="http://cdn.bootcss.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+</head>
+<body>
+{{ current_page.object_list }}
+
+ <nav>
+
+      <ul class="pagination">
+      {% if current_page.has_previous %}
+        <li ><a href="?page={{ current_page.previous_page_number }}">上一页 <span class="sr-only">(current)</span></a></li>
+      {% endif %}
+
+      {% pagination current_page paginator 12 5 as page_list %}  <!-- 引用自定义标签，并传入参数 -->
+
+      {{ page_list|safe }}  <!--  显示 -->
+
+      {% if current_page.has_next %}
+        <li><a href="?page={{ current_page.next_page_number }}">下一页 <span class="sr-only">(current)</span></a></li>
+      {% endif %}
+      </ul>
+
+ </nav>
+
+<script>
+    $(document).ready(function(){
+        $('.pagination li a').each(function(){
+
+           if ( $(this).html() == {{ current_page.number }} ){
+               $(this).parent().addClass('active')
+           }
+        });
+
+    })
+
+
+</script>
+</body>
+</html>

@@ -1,0 +1,106 @@
+ {% load pagination_tags %}
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<link rel="stylesheet" href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">
+		<script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
+		<script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+		<script>
+			$(document).ready(function(){
+				$(".Blog_content > tr:odd").css("background","#878787");
+
+//				点赞或者拍砖
+				$("button").click(function(data){
+					var likeID = $(data.target).attr('dataType');
+					var clickThis = $(this);
+					if ($(this).attr("buttonType")=="like")
+					{$.ajax({
+						type: "get",
+						url: "/ajaxlike/"+likeID,
+						dataType: "json",
+						success: function(data) {
+							clickThis.text(data.like);
+
+						}
+					});}
+					else{
+					$.ajax({
+						type: "get",
+						url: "/ajaxunlike/"+likeID,
+						dataType: "json",
+						success: function(data) {
+							clickThis.text(data.unlike);
+
+						}
+					});
+					}
+
+
+				});
+			});
+		</script>
+		<meta charset="UTF-8">
+		<title>Title</title>
+	</head>
+
+	<body>
+		loginSuccess {{username}}
+		<br>
+		<a href="/addBlog/">添加博客</a>
+		<br>
+		<table class="blogList" width="800">
+				<tr class="blog_title">
+					<th style="background:#f3f7f7;text-align: center;font-weight: ;">标题</th>
+					<th style="background:#f3f7f7;text-align: center;font-weight: bold;">鲜花</th>
+					<th style="background:#f3f7f7;text-align: center;font-weight: bold;">板砖</th>
+				</tr>
+			<tbody class="Blog_content">
+				{% for data in blogList %}
+				<tr class="blog_data">
+
+					<td style="text-align: center;padding: 10px;">
+						<a href="../blog/{{data.id}}" style="display: block;color: #0A0A0A;text-decoration: underline;">{{data.title}}</a>
+					</td>
+					<td style="text-align: center;padding: 10px;">
+						<button buttonType="like" datatype="{{data.id}}" style="text-align:center;vertical-align:middle;">{{data.like}}</button>
+					</td>
+					<td style="text-align: center;padding: 10px;">
+						<button buttonType="unlike" datatype="{{data.id}}" style="text-align:center;vertical-align:middle;">{{data.unlike}}</button>
+					</td>
+
+				</tr>
+				{%endfor%}
+			</tbody>
+		</table>
+		<!--<nav aria-label="Page navigation">-->
+			<!--<ul class="pagination">-->
+				<!--{%if blogList.has_previous%}-->
+				<!--&lt;!&ndash;<li>&ndash;&gt;-->
+					<!--<a href="?page={{blogList.previous_page_number}}" aria-label="Previous">-->
+						<!--<span aria-hidden="true">&laquo;</span>-->
+					<!--</a>-->
+				<!--&lt;!&ndash;</li>&ndash;&gt;-->
+				<!--{%endif%}-->
+				<!--{%for pg in blogList.paginator.page_range%}-->
+					<!--{%if blogList.number == pg%}-->
+						<!--&lt;!&ndash;<li class="active">&ndash;&gt;-->
+							<!--<a href="?page={{pg}}">{{pg}}</a>-->
+						<!--&lt;!&ndash;</li>&ndash;&gt;-->
+					<!--{%endif%}-->
+				<!--{%endfor%}-->
+				<!--{%if blogList.has_next%}-->
+				<!--&lt;!&ndash;<li>&ndash;&gt;-->
+					<!--<a href="?page={{blogList.next_page_number}}" aria-label="Next">-->
+						<!--<span aria-hidden="true">&raquo;</span>-->
+					<!--</a>-->
+				<!--&lt;!&ndash;</li>&ndash;&gt;-->
+				<!--{%endif%}-->
+			<!--</ul>-->
+		<!--</nav>-->
+{% autopaginate page 3%}
+{% paginate %}
+
+	</body>
+
+</html>

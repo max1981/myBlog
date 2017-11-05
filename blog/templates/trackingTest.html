@@ -1,0 +1,79 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <script src="../../static/blog/js/jquery-3.1.1.min.js"></script>
+    <script src="../static/blog/js/tracking-min.js"></script>
+    <script src="../static/blog/js/face-min.js"></script>
+    <script src="../static/blog/js/eye-min.js"></script>
+    <script src="../static/blog/js/mouth-min.js"></script>
+
+    <style>
+        .rect {
+            border: 2px solid #a64ceb;
+            left: -1000px;
+            position: absolute;
+            top: -1000px;
+        }
+
+        #img {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            margin: -173px 0 0 -300px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="demo-frame">
+    <div class="demo-container">
+        <img id="img" src="../static/blog/image/112.jpg"/>
+    </div>
+</div>
+
+<script>
+    window.onload = function () {
+//        var images = {{ images }};
+        images = ["1.jpg","50.jpg"];
+
+
+        for (var im = 1; im <= 274; im++) {
+//            var image_name = images[im];
+            var image_name = im.toString()+".jpg";
+            var img = document.getElementById('img');
+            $('#img').attr('src',"../static/blog/image/"+image_name);
+            var tracker = new tracking.ObjectTracker(['face']);//'eye', 'mouth'
+            tracker.setStepSize(1.7);
+
+            tracking.track('#img', tracker);
+
+            tracker.on('track', function (event) {
+                var num = event.data.length;
+                if (num>0){
+                    console.log(image_name);
+                    num = 0;
+                }
+//                console.log('event.data', event.data);
+//                console.log('event.data', event.data.length);
+//                event.data.forEach(function (rect) {
+//                    window.plot(rect.x, rect.y, rect.width, rect.height);
+//                });
+            });
+
+            window.plot = function (x, y, w, h) {
+                var rect = document.createElement('div');
+                document.querySelector('.demo-container').appendChild(rect);
+                rect.classList.add('rect');
+                rect.style.width = w + 'px';
+                rect.style.height = h + 'px';
+                rect.style.left = (img.offsetLeft + x) + 'px';
+                rect.style.top = (img.offsetTop + y) + 'px';
+            };
+
+        }
+    };
+</script>
+
+</body>
+</html>

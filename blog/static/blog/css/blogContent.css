@@ -1,0 +1,12 @@
+textarea.content{
+    width: 460px;
+    height: 60px;
+    box-shadow: 0px 2px 4px 0px #ececec inset;
+    margin: 0px;
+    padding-left: 3px;
+    border-radius: none;
+
+    color: #6a6a6a;
+    font-size: 13px;
+    font-weight: bold;
+}
